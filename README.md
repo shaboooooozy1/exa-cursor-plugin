@@ -13,7 +13,18 @@ Additional: `/exa-setup` (install the MCP server), `exa-best-practices` (search 
 
 ## Installation
 
+### Cursor
+
 Install it from the [Cursor Marketplace](https://cursor.com/marketplace/exa).
+
+### Claude Code
+
+The same plugin works in Claude Code. Add this repository as a plugin marketplace, then install:
+
+```
+/plugin marketplace add exa-labs/exa-cursor-plugin
+/plugin install exa@exa
+```
 
 ### MCP Only
 
