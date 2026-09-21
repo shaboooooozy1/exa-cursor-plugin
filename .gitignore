@@ -5,6 +5,7 @@ node_modules/
 # Local secrets: never commit keys used while testing MCP configs
 .env
 .env.*
+!.env.example
 *.pem
 *.p12
 *.key
