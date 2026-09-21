@@ -31,6 +31,9 @@ COMPONENTS=(
 # Upsert a plugin entry into a JSON file without clobbering other plugins.
 # Requires python3 (ships with macOS and most Linux).
 # Values are passed to python as argv, never interpolated into the source.
+# Writes go to <realpath>.tmp then os.replace(), so a symlinked settings file
+# (dotfiles managers) keeps its link and its target is updated in place, and
+# the target's existing mode is preserved.
 json_upsert() {
   local file="$1" script="$2"
   shift 2
@@ -50,26 +53,30 @@ uninstall() {
 
   # Remove .claude registration
   json_upsert "$CLAUDE_PLUGINS" '
-import json, os, sys
+import json, os, shutil, sys
 path, plugin_id = sys.argv[1:3]
 if not os.path.exists(path): sys.exit(0)
 with open(path) as f: data = json.load(f)
 plugins = data.get("plugins", {})
 plugins.pop(plugin_id, None)
 data["plugins"] = plugins
-tmp = path + ".tmp"
+real = os.path.realpath(path)
+tmp = real + ".tmp"
 with open(tmp, "w") as f: json.dump(data, f, indent=2)
-os.replace(tmp, path)
+if os.path.exists(real): shutil.copymode(real, tmp)
+os.replace(tmp, real)
 ' "$PLUGIN_ID"
   json_upsert "$CLAUDE_SETTINGS" '
-import json, os, sys
+import json, os, shutil, sys
 path, plugin_id = sys.argv[1:3]
 if not os.path.exists(path): sys.exit(0)
 with open(path) as f: data = json.load(f)
 data.get("enabledPlugins", {}).pop(plugin_id, None)
-tmp = path + ".tmp"
+real = os.path.realpath(path)
+tmp = real + ".tmp"
 with open(tmp, "w") as f: json.dump(data, f, indent=2)
-os.replace(tmp, path)
+if os.path.exists(real): shutil.copymode(real, tmp)
+os.replace(tmp, real)
 ' "$PLUGIN_ID"
 
   echo "Restart Cursor to apply."
@@ -88,7 +95,7 @@ install() {
 
   # 2. Register in ~/.claude/plugins/installed_plugins.json
   json_upsert "$CLAUDE_PLUGINS" '
-import json, os, sys
+import json, os, shutil, sys
 path, plugin_id, plugin_dir = sys.argv[1:4]
 data = {}
 if os.path.exists(path):
@@ -103,14 +110,16 @@ entries = [e for e in plugins.get(plugin_id, [])
 entries.insert(0, {"scope": "user", "installPath": plugin_dir})
 plugins[plugin_id] = entries
 data["plugins"] = plugins
-tmp = path + ".tmp"
+real = os.path.realpath(path)
+tmp = real + ".tmp"
 with open(tmp, "w") as f: json.dump(data, f, indent=2)
-os.replace(tmp, path)
+if os.path.exists(real): shutil.copymode(real, tmp)
+os.replace(tmp, real)
 ' "$PLUGIN_ID" "$PLUGIN_DIR"
 
   # 3. Enable in ~/.claude/settings.json
   json_upsert "$CLAUDE_SETTINGS" '
-import json, os, sys
+import json, os, shutil, sys
 path, plugin_id = sys.argv[1:3]
 data = {}
 if os.path.exists(path):
@@ -120,9 +129,11 @@ if os.path.exists(path):
         except ValueError: raise SystemExit("refusing to rewrite " + path + ": not valid JSON")
 if not isinstance(data, dict): raise SystemExit("refusing to rewrite " + path + ": top-level value is not an object")
 data.setdefault("enabledPlugins", {})[plugin_id] = True
-tmp = path + ".tmp"
+real = os.path.realpath(path)
+tmp = real + ".tmp"
 with open(tmp, "w") as f: json.dump(data, f, indent=2)
-os.replace(tmp, path)
+if os.path.exists(real): shutil.copymode(real, tmp)
+os.replace(tmp, real)
 ' "$PLUGIN_ID"
 
   echo ""
