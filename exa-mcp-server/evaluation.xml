@@ -1,0 +1,50 @@
+<!--
+  Evaluation set for exa-mcp-server (mcp-builder skill, Phase 4).
+  Each question needs live web research through the server's tools and has one stable,
+  string-comparable answer. Answers were checked on 2026-10-09 against primary sources:
+  congress.gov (H.R. 4634), lloyds.com history pages, the NHC Tropical Cyclone Report AL182012,
+  FEMA's NFIP chronology, NAIC McCarran-Ferguson and state-regulation papers,
+  earthquakeauthority.com, Florida Statutes 215.555 / Ch. 93-409, and hubinternational.com.
+-->
+<evaluation>
+  <qa_pair>
+    <question>Congress passed a law in response to the Supreme Court's United States v. South-Eastern Underwriters Association decision, confirming that the states regulate and tax the business of insurance. In what year was that law enacted?</question>
+    <answer>1945</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>Benjamin Franklin was the first president of a mutual fire insurer modeled on London's "Hand-in-Hand" Amicable Contributionship. That company is still operating today as the oldest property insurer in the United States. In what year was it founded?</question>
+    <answer>1752</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>The first U.S. state to appoint a dedicated insurance commissioner did so years before the Supreme Court decided Paul v. Virginia. In what year was that first commissioner appointed?</question>
+    <answer>1851</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>After a 1994 magnitude 6.7 earthquake in the San Fernando Valley, the California Legislature created a publicly managed, privately funded residential earthquake insurer. In what year was that entity established?</question>
+    <answer>1996</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>In a special legislative session after Hurricane Andrew, Florida enacted Chapter 93-409, creating a tax-exempt state trust fund that reimburses residential insurers for part of their hurricane losses. In what year was that fund created?</question>
+    <answer>1993</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>The federal terrorism insurance backstop first enacted in 2002 was reauthorized by a 2019 act for seven more years. Through the end of which year did that 2019 act extend the program?</question>
+    <answer>2027</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>The coffee house that gave rise to Lloyd's of London first operated on Tower Street. To which London street did it move in 1691?</question>
+    <answer>Lombard Street</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>According to the National Hurricane Center's final Tropical Cyclone Report on Hurricane Sandy (2012), near which New Jersey city did the post-tropical cyclone make landfall?</question>
+    <answer>Brigantine</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>The federal program now run by FEMA that sells flood insurance in communities adopting floodplain management rules was created by an act of Congress. In what year was that act passed?</question>
+    <answer>1968</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>HUB International, now headquartered in Chicago, was formed in 1998 by a merger of Canadian insurance brokerages. How many brokerages merged to form it?</question>
+    <answer>11</answer>
+  </qa_pair>
+</evaluation>
