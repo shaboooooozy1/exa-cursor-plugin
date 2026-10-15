@@ -1,0 +1,30 @@
+{
+  "name": "exa-mcp-server",
+  "version": "1.0.0",
+  "description": "Local (stdio) MCP server for the Exa search API: web search, page contents, and cited answers",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "exa-mcp-server": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsx src/index.ts",
+    "clean": "rm -rf dist",
+    "test": "npm run build && node test/run-e2e.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.1",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.5",
+    "tsx": "^4.23.15",
+    "typescript": "^5.9.3"
+  }
+}
